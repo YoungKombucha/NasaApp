@@ -52,3 +52,18 @@ def fetch_neo(api_key):
             else:
                 print(f"Error fetching NEO data: {response.status_code}")
 fetch_neo(neo_api_key)
+
+# Menu
+def menu():
+    print("Nasa API Application")
+    print("1. Astronomy Picture of the Day")
+    print("2. Near-Earth Objects")
+    choice = input("Choose an option: ")
+    if choice == '1':
+        fetch_apod(apod_api_key)
+    elif choice == '2':
+        fetch_neo(neo_api_key)
+    else:
+        print("Invalid choice. Please try again.")
+if __name__ == "__main__":
+    menu()
