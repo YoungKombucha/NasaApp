@@ -7,3 +7,7 @@
     API_KEY=your_api_key_here
     ```
 4. Run the application: `python app.py`
+   
+## Issues Encountered
+1. issue with requests, had to install requests.
+   
