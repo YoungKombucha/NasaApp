@@ -1,6 +1,7 @@
 from dotenv import load_dotenv
 import os
 import requests
+from datetime import datetime
 
 # Load environment variables from the .env file
 load_dotenv()
@@ -17,6 +18,7 @@ if not apod_api_key or not neo_api_key:
 print(f"Loaded APOD API key: {apod_api_key[:4]}...")
 print(f"Loaded NEO API key: {neo_api_key[:4]}...")
 
+#APOD API
 def fetch_apod(api_key):
        url = f"https://api.nasa.gov/planetary/apod?api_key={api_key}"
        response = requests.get(url)
@@ -31,3 +33,22 @@ def fetch_apod(api_key):
             print(f"Error fetching APOD data: {response.status_code}")
 
 fetch_apod(apod_api_key)
+
+#NEO API
+def fetch_neo(api_key):
+        today = datetime.today().strftime('%Y-%m-%d')
+        url = f"https://api.nasa.gov/neo/rest/v1/feed?api_key={api_key}"
+        response = requests.get(url)
+        if response.status_code == 200:
+            neo_data = response.json()
+            asteroids = neo_data['near_earth_objects'][today]
+            print("Near-Earth Objects for {today}:")
+            for asteroid in asteroids:
+                print("Name:", asteroid['name'])
+                print("Diameter (m):", asteroid['estimated_diameter']['meters']['estimated_diameter_max'])
+                print("Potentially Hazardous:", asteroid['is_potentially_hazardous_asteroid'])
+                print("Closest Approach Date:", asteroid['close_approach_data'][0]['close_approach_date'])
+                print("Miss Distance (km):", asteroid['close_approach_data'][0]['miss_distance']['kilometers'])
+            else:
+                print(f"Error fetching NEO data: {response.status_code}")
+fetch_neo(neo_api_key)
