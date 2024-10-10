@@ -38,16 +38,7 @@ def fetch_apod(api_key):
     else:
         print(f"Error: Received unexpected status code {response.status_code}")
 
-#test
-if __name__ == "__main__":
-    from dotenv import load_dotenv
-    import os
-
-    load_dotenv()
-    apod_api_key = os.getenv('APOD_API_KEY')
-    fetch_apod(apod_api_key)
-
-#NEO API
+# NEO API
 def fetch_neo(api_key):
     try:
         today = datetime.now().strftime('%Y-%m-%d')
@@ -73,39 +64,25 @@ def fetch_neo(api_key):
             print(f"Error fetching NEO data: {response.status_code}")
     except Exception as e:
         print(f"An error occurred: {e}")
-fetch_neo(neo_api_key)
 
 # Menu
 def menu():
-    print("Nasa API Application")
-    print("1. Astronomy Picture of the Day")
-    print("2. Near-Earth Objects")
+    while True:
+        print("\nNasa API Application")
+        print("1. Fetch Astronomy Picture of the Day (APOD)")
+        print("2. Fetch Near-Earth Objects (NEO)")
+        print("3. Exit")
+        choice = input("Enter your choice: ")
 
-    choice = input("Choose an option: ").strip()
+        if choice == '1':
+            fetch_apod(apod_api_key)
+        elif choice == '2':
+            fetch_neo(neo_api_key)
+        elif choice == '3':
+            print("Exiting the application.")
+            break
+        else:
+            print("Invalid choice. Please try again.")
 
-    print(f'You chose: {choice}')
-
-    if choice == '1':
-        print("Fetching APOD data...")
-        fetch_apod(apod_api_key)
-    elif choice == '2':
-        print("Fetching Near-Earth Objects data...")
-        fetch_neo(neo_api_key)
-    else:
-        print("Invalid choice. Please try again.")
-
-if __name__ == "__main__":
-    from dotenv import load_dotenv
-    import os
-
-    load_dotenv()
-    apod_api_key = os.getenv('APOD_API_KEY')
-    neo_api_key = os.getenv('NEO_API_KEY')
-    
-    if not apod_api_key:
-        print("APOD API Key not found!")
-    if not neo_api_key:
-        print("NeoWs API Key not found!")
-    
-    
-    menu()
+# Run the menu
+menu()

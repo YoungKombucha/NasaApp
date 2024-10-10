@@ -20,5 +20,5 @@
     - **Solved**: Issue was an invalid API key, simply generated a new key.
 3. **Issue**: main displays information before any user request.
     -**Cause**: Unsure, maybe menu logic
-    
+    -**Solved**: It was the menu logic lol
    
