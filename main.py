@@ -10,13 +10,6 @@ load_dotenv()
 apod_api_key = os.getenv('APOD_API_KEY')
 neo_api_key = os.getenv('NEO_API_KEY')
 
-# Check if the API keys were loaded correctly
-if not apod_api_key or not neo_api_key:
-    raise ValueError("API keys not found. Please check your .env file.")
-
-# Example of loading both keys
-print(f"Loaded APOD API key: {apod_api_key[:4]}...")
-print(f"Loaded NEO API key: {neo_api_key[:4]}...")
 
 # APOD API
 def fetch_apod(api_key):
@@ -57,6 +50,7 @@ def fetch_neo(api_key):
                 print("Potentially Hazardous:", asteroid['is_potentially_hazardous_asteroid'])
                 print("Closest Approach Date:", asteroid['close_approach_data'][0]['close_approach_date'])
                 print("Miss Distance (km):", asteroid['close_approach_data'][0]['miss_distance']['kilometers'])
+                print("-" * 40)  # Separator line between objects
         elif response.status_code == 403:
             print("Forbidden request. Check if the API key is valid and if you have the necessary permissions.")
             print("Response content:", response.content)
@@ -83,6 +77,14 @@ def menu():
             break
         else:
             print("Invalid choice. Please try again.")
+
+# Check if the API keys were loaded correctly
+if not apod_api_key or not neo_api_key:
+    raise ValueError("API keys not found. Please check your .env file.")
+
+# Example of loading both keys
+print(f"Loaded APOD API key: {apod_api_key[:4]}...")
+print(f"Loaded NEO API key: {neo_api_key[:4]}...")
 
 # Run the menu
 menu()
