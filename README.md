@@ -17,5 +17,8 @@
      2. The API request exceeds the rate limit (too many requests in a short period).
      3. The API is being accessed from an unsupported location or network.
    - **Solution**: Investigate whether the API key is correctly loaded and valid, and ensure that the request is within the API's rate limits.
-
+    - **Solved**: Issue was an invalid API key, simply generated a new key.
+3. **Issue**: main displays information before any user request.
+    -**Cause**: Unsure, maybe menu logic
+    
    
