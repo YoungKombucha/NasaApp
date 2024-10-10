@@ -21,4 +21,6 @@
 3. **Issue**: main displays information before any user request.
     -**Cause**: Unsure, maybe menu logic
     -**Solved**: It was the menu logic lol
-   
+
+4. **Issue**: Option two displays every near eath object in a contiuous txt string. 
+                -would like to make more easy on the eyes.
