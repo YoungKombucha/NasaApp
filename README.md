@@ -24,3 +24,7 @@
 
 4. **Issue**: Option two displays every near eath object in a contiuous txt string. 
                 -would like to make more easy on the eyes.
+    **Solved**
+
+5. **Issue**: would like to actually display the image we fetch.
+   **Solved**

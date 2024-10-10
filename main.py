@@ -2,6 +2,8 @@ from dotenv import load_dotenv
 import os
 import requests
 from datetime import datetime
+from PIL import Image
+from io import BytesIO
 
 # Load environment variables from the .env file
 load_dotenv()
@@ -23,6 +25,12 @@ def fetch_apod(api_key):
         print("Title:", apod_data['title'])
         print("Explanation:", apod_data['explanation'])
         print("URL:", apod_data['url'])
+
+        # Display the image
+        image_url = apod_data['url']
+        image_response = requests.get(image_url)
+        img = Image.open(BytesIO(image_response.content))
+        img.show()
     elif response.status_code == 400:
         print("Bad request. Please check your API key and parameters.")
     elif response.status_code == 403:
