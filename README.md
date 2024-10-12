@@ -28,3 +28,5 @@
 
 5. **Issue**: would like to actually display the image we fetch.
    **Solved**
+
+6. **Issue**: Finally, lets add a ui.
