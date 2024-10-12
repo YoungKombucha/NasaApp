@@ -30,3 +30,4 @@
    **Solved**
 
 6. **Issue**: Finally, lets add a ui.
+   **Solved**
