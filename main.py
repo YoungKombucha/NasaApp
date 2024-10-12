@@ -4,6 +4,7 @@ import requests
 from datetime import datetime
 from PIL import Image
 from io import BytesIO
+from tabulate import tabulate
 
 # Load environment variables from the .env file
 load_dotenv()
@@ -11,7 +12,6 @@ load_dotenv()
 # Access environment variables for each API key
 apod_api_key = os.getenv('APOD_API_KEY')
 neo_api_key = os.getenv('NEO_API_KEY')
-
 
 # APOD API
 def fetch_apod(api_key):
@@ -31,6 +31,9 @@ def fetch_apod(api_key):
         image_response = requests.get(image_url)
         img = Image.open(BytesIO(image_response.content))
         img.show()
+
+        # Save the image locally
+        save_image_locally(img, apod_data['title'])
     elif response.status_code == 400:
         print("Bad request. Please check your API key and parameters.")
     elif response.status_code == 403:
@@ -38,6 +41,11 @@ def fetch_apod(api_key):
         print("Response content:", response.content)
     else:
         print(f"Error: Received unexpected status code {response.status_code}")
+
+def save_image_locally(img, title):
+    filename = f"{title.replace(' ', '_')}.jpg"
+    img.save(filename)
+    print(f"Image saved as {filename}")
 
 # NEO API
 def fetch_neo(api_key):
@@ -52,13 +60,16 @@ def fetch_neo(api_key):
             asteroids = neo_data['near_earth_objects'][today]
 
             print(f"Near-Earth Objects for {today}:")
+            table_data = []
             for asteroid in asteroids:
-                print("Name:", asteroid['name'])
-                print("Diameter (m):", asteroid['estimated_diameter']['meters']['estimated_diameter_max'])
-                print("Potentially Hazardous:", asteroid['is_potentially_hazardous_asteroid'])
-                print("Closest Approach Date:", asteroid['close_approach_data'][0]['close_approach_date'])
-                print("Miss Distance (km):", asteroid['close_approach_data'][0]['miss_distance']['kilometers'])
-                print("-" * 40)  # Separator line between objects
+                table_data.append([
+                    asteroid['name'],
+                    asteroid['estimated_diameter']['meters']['estimated_diameter_max'],
+                    asteroid['is_potentially_hazardous_asteroid'],
+                    asteroid['close_approach_data'][0]['close_approach_date'],
+                    asteroid['close_approach_data'][0]['miss_distance']['kilometers']
+                ])
+            print(tabulate(table_data, headers=["Name", "Diameter (m)", "Potentially Hazardous", "Closest Approach Date", "Miss Distance (km)"]))
         elif response.status_code == 403:
             print("Forbidden request. Check if the API key is valid and if you have the necessary permissions.")
             print("Response content:", response.content)
