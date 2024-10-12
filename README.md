@@ -31,3 +31,6 @@
 
 6. **Issue**: Finally, lets add a ui.
    **Solved**
+
+7. **Issue**: APOD functionality doesn't display description.
+   **Solved**
