@@ -34,3 +34,7 @@
 
 7. **Issue**: APOD functionality doesn't display description.
    **Solved**
+
+8. **Issue**: Reworking for vulnerabilities
+                -use more try exceptions when pulling my API's from the .env file.
+   **Solved**
